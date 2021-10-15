@@ -3,6 +3,15 @@ use specs::prelude::*;
 use std::cmp::{max,min};
 use specs_derive::Component;
 
+mod components;
+pub use components::*;
+mod map;
+pub use map::*;
+mod player;
+pub use player::*;
+
+
+/*
 #[derive(Component)]
 struct Position {
 	x : i32, //32 bit integers
@@ -18,6 +27,10 @@ struct Renderable {
 
 #[derive(Component, Debug)]
 struct Player{}
+*/
+
+
+/*
 
 #[derive(PartialEq, Copy, Clone)]
 enum TileType {
@@ -85,6 +98,8 @@ fn draw_map(map: &[TileType], ctx: &mut Rltk) {
 	}
 }
 
+*/
+
 /*
 #[derive(Component)]
 struct LeftMover {}
@@ -102,6 +117,8 @@ impl<'a> System<'a> for LeftWalker {
 	}
 }
 */
+
+/*
 
 fn try_move_player(delta_x: i32, delta_y: i32, ecs: &mut World){
 	let mut positions = ecs.write_storage::<Position>();
@@ -131,7 +148,9 @@ fn player_input(gs: &mut State, ctx: &mut Rltk){
 	}
 }
 
-struct State{
+*/
+
+pub struct State{
 	ecs: World
 }
 
