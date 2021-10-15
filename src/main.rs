@@ -16,6 +16,9 @@ struct Renderable {
 	bg: RGB,
 }
 
+#[derive(Component)]
+struct LeftMover {}
+
 struct State{
 	ecs: World
 }
@@ -23,7 +26,13 @@ struct State{
 impl GameState for State {
 	fn tick(&mut self, ctx : &mut Rltk){
 		ctx.cls();
-		ctx.print(1,1, "Canaan's rogue")
+		
+		let positions = self.ecs.read_storage::<Position>();
+		let renderables = self.ecs.read_storage::<Renderable>();
+
+		for (pos, render) in (&positions, &renderables).join(){
+			ctx.set(pos.x,pos.y,render.fg,render.bg, render.glyph);
+		}
 	}
 }
 
@@ -41,6 +50,46 @@ fn main() -> rltk::BError {
 	gs.ecs.register::<Position>();
 	gs.ecs.register::<Renderable>();
 
+	for i in 0..10{
+
+		gs.ecs
+			.create_entity()
+			.with(Position{ x: i * 7 , y: 5})
+			.with(Renderable{
+				glyph: rltk::to_cp437('♣'),
+				fg: RGB::named(rltk::RED),
+				bg: RGB::named(rltk::BLACK),
+			})
+			.build();
+
+		gs.ecs
+			.create_entity()
+			.with(Position{ x: i * 7, y: 15})
+			.with(Renderable{
+				glyph: rltk::to_cp437('♦'),
+				fg: RGB::named(rltk::RED),
+				bg: RGB::named(rltk::BLACK),
+			})
+			.build();
+		gs.ecs
+			.create_entity()
+			.with(Position{ x: i * 7, y: 25})
+			.with(Renderable{
+				glyph: rltk::to_cp437('♠'),
+				fg: RGB::named(rltk::RED),
+				bg: RGB::named(rltk::BLACK),
+			})
+			.build();
+		gs.ecs
+			.create_entity()
+			.with(Position{ x: i * 7, y: 35})
+			.with(Renderable{
+				glyph: rltk::to_cp437('♥'),
+				fg: RGB::named(rltk::RED),
+				bg: RGB::named(rltk::BLACK),
+			})
+			.build();
+}
 
 	rltk::main_loop(context, gs)
 }
