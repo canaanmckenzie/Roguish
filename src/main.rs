@@ -20,8 +20,6 @@ struct State{
 	ecs: World
 }
 
-struct State {}
-
 impl GameState for State {
 	fn tick(&mut self, ctx : &mut Rltk){
 		ctx.cls();
@@ -35,11 +33,14 @@ fn main() -> rltk::BError {
 	let context = RltkBuilder::simple80x50()
 		.with_title("Roguish")
 		.build()?;
+
 	let mut gs = State{
+
 		ecs: World::new()
-		gs.ecs.register::<Position>()
-		gs.ecs.register::<Renderable()
 	};
+	gs.ecs.register::<Position>();
+	gs.ecs.register::<Renderable>();
+
 
 	rltk::main_loop(context, gs)
 }
