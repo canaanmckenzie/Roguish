@@ -1,4 +1,4 @@
-use rltk::{Rltk,GameState,RGB};
+use rltk::{Rltk,GameState,RGB, VirtualKeyCode};
 use specs::prelude::*;
 use std::cmp::{max,min};
 use specs_derive::Component;
@@ -16,7 +16,7 @@ struct Renderable {
 	bg: RGB,
 }
 
-#[derive(Component)]
+#[derive(Component, Debug)]
 struct Player{}
 
 #[derive(Component)]
@@ -49,12 +49,12 @@ fn player_input(gs: &mut State, ctx: &mut Rltk){
 	//player movement
 	match ctx.key {
 		None => {} //nothing happened
-		Some(key) => match key{
+		Some(key) => match key {
 			VirtualKeyCode::Left => try_move_player(-1, 0, &mut gs.ecs),
 			VirtualKeyCode::Right => try_move_player(1,0, &mut gs.ecs),
 			VirtualKeyCode::Up => try_move_player(0,-1, &mut gs.ecs),
 			VirtualKeyCode::Down => try_move_player(0,1, &mut gs.ecs),
-			_=> {}
+			_ => {}
 		},
 	}
 }
@@ -67,8 +67,9 @@ impl GameState for State {
 	fn tick(&mut self, ctx : &mut Rltk){
 		ctx.cls();
 
+		player_input(self,ctx);
 		self.run_system();
-		
+
 		let positions = self.ecs.read_storage::<Position>();
 		let renderables = self.ecs.read_storage::<Renderable>();
 
@@ -124,8 +125,9 @@ fn main() -> rltk::BError {
 				fg: RGB::named(rltk::YELLOW),
 				bg: RGB::named(rltk::BLACK),
 			})
-			.with(Player{});
+			.with(Player{})
 			.build();
+
 /*
 		gs.ecs
 			.create_entity()
