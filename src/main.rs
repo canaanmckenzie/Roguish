@@ -1,4 +1,4 @@
-use rltk::{Rltk,GameState,RGB, VirtualKeyCode};
+use rltk::{Rltk,GameState,RGB, VirtualKeyCode,Point};
 use specs::prelude::*;
 //use std::cmp::{max,min};
 //use specs_derive::Component;
@@ -128,6 +128,7 @@ fn main() -> rltk::BError {
 			.with(Viewshed{visible_tiles:Vec::new(),range: 6, dirty: true}) //change hard code later
 			.build();
 
+	gs.ecs.insert(Point::new(player_x,player_y));
 	rltk::main_loop(context, gs)
 }
 
