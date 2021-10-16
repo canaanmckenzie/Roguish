@@ -12,6 +12,12 @@ mod rect;
 pub use rect::Rect;
 mod visibility_system;
 pub use visibility_system::VisibilitySystem;
+mod monster_ai_system;
+pub use monster_ai_system::MonsterAI;
+
+
+#[derive(PartialEq, Copy,Clone)]
+pub enum RunState {Paused, Running}
 
 pub struct State{
 	pub ecs: World
@@ -46,6 +52,8 @@ impl State{
 	fn run_system(&mut self){
 		let mut vis = VisibilitySystem{};
 		vis.run_now(&self.ecs);
+		let mut mob = MonsterAI{};
+		mob.run_now(&self.ecs);
 		self.ecs.maintain();
 	}
 }
@@ -64,6 +72,7 @@ fn main() -> rltk::BError {
 	gs.ecs.register::<Renderable>();
 	gs.ecs.register::<Player>();
 	gs.ecs.register::<Viewshed>();
+	gs.ecs.register::<Monster>();
 
 	//let (rooms, map) = new_map_rooms_and_corridors();
 	let map: Map = Map::new_map_rooms_and_corridors();
@@ -91,6 +100,7 @@ fn main() -> rltk::BError {
 				bg: RGB::named(rltk::BLACK),
 			})
 			.with(Viewshed{visible_tiles:Vec::new(),range:6,dirty:true})
+			.with(Monster{})
 			.build();
 	}
 
