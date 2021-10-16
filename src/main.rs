@@ -20,7 +20,8 @@ pub use monster_ai_system::MonsterAI;
 pub enum RunState {Paused, Running}
 
 pub struct State{
-	pub ecs: World
+	pub ecs: World,
+	pub runstate: RunState
 }
 
 impl GameState for State {
@@ -28,7 +29,15 @@ impl GameState for State {
 		ctx.cls();
 
 		player_input(self,ctx);
-		self.run_system();
+
+
+		//add runstate conditions for pausing
+		if self.runstate == RunState::Running{
+			self.run_system();
+			self.runstate = RunState::Paused;
+		} else {
+			self.runstate = player_input(self,ctx);
+		}
 
 		//let map = self.ecs.fetch::<Vec<TileType>>();
 		draw_map(&self.ecs, ctx);
@@ -65,7 +74,8 @@ fn main() -> rltk::BError {
 		.build()?;
 
 	let mut gs = State{
-		ecs: World::new()
+		ecs: World::new(),
+		runstate: RunState::Running
 	};
 
 	gs.ecs.register::<Position>();

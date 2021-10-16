@@ -2,7 +2,7 @@ use rltk::{Rltk,GameState,RGB, VirtualKeyCode};
 use specs::prelude::*;
 use std::cmp::{max,min};
 use specs_derive::Component;
-use super::{Position,Player,TileType,Map,State, Viewshed};
+use super::{Position,Player,TileType,Map,State, Viewshed,RunState};
 
 
 pub fn try_move_player(delta_x: i32, delta_y: i32, ecs: &mut World){
@@ -22,10 +22,10 @@ pub fn try_move_player(delta_x: i32, delta_y: i32, ecs: &mut World){
 	}
 }
 
-pub fn player_input(gs: &mut State, ctx: &mut Rltk){
+pub fn player_input(gs: &mut State, ctx: &mut Rltk) -> RunState{
 	//player movement
 	match ctx.key {
-		None => {} //nothing happened
+		None => {return RunState::Paused} //nothing happened
 
 		Some(key) => match key {
 			VirtualKeyCode::Left |
@@ -44,7 +44,8 @@ pub fn player_input(gs: &mut State, ctx: &mut Rltk){
 			VirtualKeyCode::Numpad2 |
 			VirtualKeyCode::S => try_move_player(0,1, &mut gs.ecs),
 
-			_ => {}
+			_ => {return RunState::Running}
 		},
 	}
+	RunState::Running
 }
