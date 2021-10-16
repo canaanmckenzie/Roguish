@@ -75,7 +75,7 @@ fn main() -> rltk::BError {
 				bg: RGB::named(rltk::BLACK),
 			})
 			.with(Player{})
-			.with(Viewshed{visibile_tiles:Vec::new(),range: 8, dirty: true}) //change hard code later
+			.with(Viewshed{visible_tiles:Vec::new(),range: 6, dirty: true}) //change hard code later
 			.build();
 
 	rltk::main_loop(context, gs)
