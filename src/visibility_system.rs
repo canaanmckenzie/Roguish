@@ -20,3 +20,4 @@ impl <'a> System <'a> for VisibilitySystem {
 		}
 	}
 }
+
