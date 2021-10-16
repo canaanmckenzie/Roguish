@@ -73,17 +73,21 @@ fn main() -> rltk::BError {
 	for room in map.rooms.iter().skip(1){
 		let (x,y) = room.center();
 		let glyph : rltk::FontCharType;
-		let roll = rng.roll_dice(1,2);
+		let fg : rltk::RGB;
+		let roll = rng.roll_dice(1,5);
+
 		match roll {
-			1 => {glyph = rltk::to_cp437('♥')}
-			_ => {glyph = rltk::to_cp437('♣')}
+			1 => {glyph = rltk::to_cp437('♥'); fg =  RGB::named(rltk::RED)}
+			2 => {glyph = rltk::to_cp437('♣'); fg = RGB::named(rltk::GREEN)}
+			3 => {glyph = rltk::to_cp437('♠'); fg = RGB::named(rltk::BLUE)}
+			_ => {glyph = rltk::to_cp437('♦'); fg = RGB::named(rltk::YELLOW)}
 		}
 		gs.ecs
 			.create_entity()
 			.with(Position{x,y})
 			.with(Renderable{
 				glyph: glyph,
-				fg: RGB::named(rltk::RED),
+				fg: fg,
 				bg: RGB::named(rltk::BLACK),
 			})
 			.with(Viewshed{visible_tiles:Vec::new(),range:6,dirty:true})
@@ -96,8 +100,8 @@ fn main() -> rltk::BError {
 			.create_entity()
 			.with(Position { x: player_x, y: player_y})
 			.with(Renderable{
-				glyph: rltk::to_cp437('♦'),
-				fg: RGB::named(rltk::YELLOW),
+				glyph: rltk::to_cp437('@'),
+				fg: RGB::named(rltk::PURPLE),
 				bg: RGB::named(rltk::BLACK),
 			})
 			.with(Player{})
