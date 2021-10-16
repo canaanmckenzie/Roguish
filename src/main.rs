@@ -83,6 +83,7 @@ fn main() -> rltk::BError {
 	gs.ecs.register::<Player>();
 	gs.ecs.register::<Viewshed>();
 	gs.ecs.register::<Monster>();
+	gs.ecs.register::<Name>();
 
 	//let (rooms, map) = new_map_rooms_and_corridors();
 	let map: Map = Map::new_map_rooms_and_corridors();
@@ -93,13 +94,14 @@ fn main() -> rltk::BError {
 		let (x,y) = room.center();
 		let glyph : rltk::FontCharType;
 		let fg : rltk::RGB;
+		let name : String;
 		let roll = rng.roll_dice(1,5);
 
 		match roll {
-			1 => {glyph = rltk::to_cp437('♥'); fg =  RGB::named(rltk::RED)}
-			2 => {glyph = rltk::to_cp437('♣'); fg = RGB::named(rltk::GREEN)}
-			3 => {glyph = rltk::to_cp437('♠'); fg = RGB::named(rltk::BLUE)}
-			_ => {glyph = rltk::to_cp437('♦'); fg = RGB::named(rltk::YELLOW)}
+			1 => {glyph = rltk::to_cp437('♥'); fg =  RGB::named(rltk::RED); name = "Heart Henchman".to_string();}
+			2 => {glyph = rltk::to_cp437('♣'); fg = RGB::named(rltk::GREEN); name = "Club Combatant".to_string();}
+			3 => {glyph = rltk::to_cp437('♠'); fg = RGB::named(rltk::BLUE); name = "Spade Soldier".to_string();}
+			_ => {glyph = rltk::to_cp437('♦'); fg = RGB::named(rltk::YELLOW); name = "Diamond Duelist".to_string();}
 		}
 		gs.ecs
 			.create_entity()
@@ -111,6 +113,7 @@ fn main() -> rltk::BError {
 			})
 			.with(Viewshed{visible_tiles:Vec::new(),range:6,dirty:true})
 			.with(Monster{})
+			.with(Name{ name: format!("{} #{}",&name,i)})
 			.build();
 	}
 
