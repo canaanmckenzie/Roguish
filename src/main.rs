@@ -90,13 +90,15 @@ fn main() -> rltk::BError {
 	let (player_x, player_y) = map.rooms[0].center();
 
 	let mut rng = rltk::RandomNumberGenerator::new();
+
 	for room in map.rooms.iter().skip(1){
+
 		let (x,y) = room.center();
 		let glyph : rltk::FontCharType;
 		let fg : rltk::RGB;
 		let name : String;
-		let roll = rng.roll_dice(1,5);
 
+		let roll = rng.roll_dice(1,5);
 		match roll {
 			1 => {glyph = rltk::to_cp437('♥'); fg =  RGB::named(rltk::RED); name = "Heart Henchman".to_string();}
 			2 => {glyph = rltk::to_cp437('♣'); fg = RGB::named(rltk::GREEN); name = "Club Combatant".to_string();}
@@ -113,7 +115,7 @@ fn main() -> rltk::BError {
 			})
 			.with(Viewshed{visible_tiles:Vec::new(),range:6,dirty:true})
 			.with(Monster{})
-			.with(Name{ name: format!("{} #{}",&name,i)})
+			.with(Name{ name: format!("{}",&name)})
 			.build();
 	}
 
@@ -129,6 +131,7 @@ fn main() -> rltk::BError {
 			})
 			.with(Player{})
 			.with(Viewshed{visible_tiles:Vec::new(),range: 6, dirty: true}) //change hard code later
+			.with(Name{name: "Player".to_string()})
 			.build();
 
 	gs.ecs.insert(Point::new(player_x,player_y));

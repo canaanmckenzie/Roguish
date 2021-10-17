@@ -24,5 +24,5 @@ pub struct Monster {}
 
 #[derive(Component, Debug)]
 pub struct Name{
-	pube name: String
+	pub name: String
 }
