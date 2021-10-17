@@ -89,6 +89,7 @@ fn main() -> rltk::BError {
 	gs.ecs.register::<Monster>();
 	gs.ecs.register::<Name>();
 	gs.ecs.register::<BlocksTile>();
+	gs.ecs.register::<CombatStats>();
 
 	//let (rooms, map) = new_map_rooms_and_corridors();
 	let map: Map = Map::new_map_rooms_and_corridors();
@@ -120,6 +121,7 @@ fn main() -> rltk::BError {
 			})
 			.with(Viewshed{visible_tiles:Vec::new(),range:6,dirty:true})
 			.with(Monster{})
+			.with(CombatStats{max_hp: 13, hp: 13, defense: 1, power: 4})
 			.with(Name{ name: format!("{}",&name)})
 			.with(BlocksTile{})
 			.build();
@@ -136,6 +138,7 @@ fn main() -> rltk::BError {
 				bg: RGB::named(rltk::BLACK),
 			})
 			.with(Player{})
+			.with(CombatStats{max_hp: 30, hp: 30, defense: 2, power: 5})
 			.with(Viewshed{visible_tiles:Vec::new(),range: 6, dirty: true}) //change hard code later
 			.with(Name{name: "Player".to_string()})
 			.build();
