@@ -19,8 +19,16 @@ impl <'a> System <'a> for MonsterAI{
 		let (mut map, player_pos, mut viewshed, monster, name, mut position) = data;
 
 		for (mut viewshed, _monster, name, mut pos) in (&mut viewshed, &monster, &name, &mut position).join(){
+
+			let distance = rltk::DistanceAlg::Pythagoras.distance2d(Point::new(pos.x,pos.y), *player_pos);
+
+				if distance < 1.5 { //attack range of monsters, need to change based on type
+					//Attack
+					console::log(&format!(" {} : Monster Alert!!",name.name));
+					return;
+				}
+
 			if viewshed.visible_tiles.contains(&*player_pos){
-			console::log(&format!(" {} : Monster Alert!!",name.name));
 			
 			let path = rltk::a_star_search(
 				map.xy_idx(pos.x,pos.y) as i32,
