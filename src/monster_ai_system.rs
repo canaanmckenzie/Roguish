@@ -21,6 +21,7 @@ impl <'a> System <'a> for MonsterAI{
 		for (mut viewshed, _monster, name, mut pos) in (&mut viewshed, &monster, &name, &mut position).join(){
 			if viewshed.visible_tiles.contains(&*player_pos){
 			console::log(&format!(" {} : Monster Alert!!",name.name));
+			
 			let path = rltk::a_star_search(
 				map.xy_idx(pos.x,pos.y) as i32,
 				map.xy_idx(player_pos.x,player_pos.y) as i32,
