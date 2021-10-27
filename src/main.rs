@@ -146,7 +146,7 @@ fn main() -> rltk::BError {
 				bg: RGB::named(rltk::BLACK),
 			})
 			.with(Player{})
-			.with(CombatStats{max_hp: 30, hp: 30, defense: 2, power: 5})
+			.with(CombatStats{max_hp: 100, hp: 30, defense: 2, power: 20})
 			.with(Viewshed{visible_tiles:Vec::new(),range: 6, dirty: true}) //change hard code later
 			.with(Name{name: "Player".to_string()})
 			.build();
