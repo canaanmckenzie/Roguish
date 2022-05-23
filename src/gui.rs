@@ -59,7 +59,7 @@ pub fn draw_ui(ecs: &World, ctx: &mut Rltk){
 				let left_x = mouse_pos.0 - width;
 				let mut y = mouse_pos.1;
 				for s in tooltip.iter(){
-					ctx.print_color(left_x,y, RGB::named(rltk::WHITE), RGB::named(rltk::GREY), s);
+					ctx.print_color(left_x,y, RGB::named(rltk::GREEN), RGB::named(rltk::GREY), s);
 					let padding = (width - s.len() as i32) - 1;
 					for i in 0..padding {
 						ctx.print_color(arrow_pos.x - i,y, RGB::named(rltk::WHITE),RGB::named(rltk::GREY), &" ".to_string());
