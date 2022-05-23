@@ -23,6 +23,7 @@ pub use damage_system::DamageSystem;
 
 
 #[derive(PartialEq, Copy,Clone)]
+//replace runstate with something more descriptive of each phase
 pub enum RunState {Paused, Running}
 
 pub struct State{

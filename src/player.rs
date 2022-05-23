@@ -72,7 +72,7 @@ pub fn player_input(gs: &mut State, ctx: &mut Rltk) -> RunState{
 
 			VirtualKeyCode::C => try_move_player(1, 1, &mut gs.ecs),
 
-			_ => {return RunState::Running}
+			_ => {return RunState::Paused}
 		},
 	}
 	RunState::Running
