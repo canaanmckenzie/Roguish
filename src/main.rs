@@ -24,7 +24,9 @@ mod gui;
 pub use gui::draw_ui;
 mod gamelog;
 pub use gamelog::GameLog;
-
+mod spawner;
+pub use spawner::player;
+pub use spawner::random_monster;
 
 
 
@@ -136,9 +138,13 @@ fn main() -> rltk::BError {
 
 	let mut rng = rltk::RandomNumberGenerator::new();
 
+	let player_entity =  spawner::player(&mut gs.ecs, player_x, player_y);
+
 	for room in map.rooms.iter().skip(1){
 
 		let (x,y) = room.center();
+		spawner::random_monster(&mut gs.ecs, x,y);
+		/*
 		let glyph : rltk::FontCharType;
 		let fg : rltk::RGB;
 		let name : String;
@@ -165,7 +171,8 @@ fn main() -> rltk::BError {
 			.with(BlocksTile{})
 			.build();
 	}
-
+	*/
+	/*
 		let player_entity = gs.ecs
 			.create_entity()
 			.with(Position { x: player_x, y: player_y})
@@ -179,8 +186,10 @@ fn main() -> rltk::BError {
 			.with(Viewshed{visible_tiles:Vec::new(),range: 6, dirty: true}) //change hard code later
 			.with(Name{name: "Player".to_string()})
 			.build();
-
+	*/
+}
 	//resource inserts
+	//gs.ecs.insert(rltk::RandomNumberGenerator::new());
 	gs.ecs.insert(map);
 	gs.ecs.insert(Point::new(player_x,player_y));
 	gs.ecs.insert(player_entity);
