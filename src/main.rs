@@ -20,6 +20,12 @@ mod melee_combat_system;
 pub use melee_combat_system::MeleeCombatSystem;
 mod damage_system;
 pub use damage_system::DamageSystem;
+mod gui;
+pub use gui::draw_ui;
+mod gamelog;
+pub use gamelog::GameLog;
+
+
 
 
 #[derive(PartialEq, Copy,Clone)]
@@ -80,6 +86,8 @@ impl GameState for State {
 
 			if map.visible_tiles[idx] {ctx.set(pos.x,pos.y,render.fg,render.bg, render.glyph)};
 		}
+
+		gui::draw_ui(&self.ecs, ctx);
 	}
 }
 
@@ -167,7 +175,7 @@ fn main() -> rltk::BError {
 				bg: RGB::named(rltk::BLACK),
 			})
 			.with(Player{})
-			.with(CombatStats{max_hp: 100, hp: 30, defense: 2, power: 20})
+			.with(CombatStats{max_hp: 100, hp: 100, defense: 2, power: 20})
 			.with(Viewshed{visible_tiles:Vec::new(),range: 6, dirty: true}) //change hard code later
 			.with(Name{name: "Player".to_string()})
 			.build();
@@ -176,6 +184,7 @@ fn main() -> rltk::BError {
 	gs.ecs.insert(map);
 	gs.ecs.insert(Point::new(player_x,player_y));
 	gs.ecs.insert(player_entity);
+	gs.ecs.insert(gamelog::GameLog{entries: vec!["Welcome to Roguish".to_string()]});
 	gs.ecs.insert(RunState::PreRun);
 	rltk::main_loop(context, gs)
 }
