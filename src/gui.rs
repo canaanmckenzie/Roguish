@@ -10,6 +10,7 @@ pub fn draw_ui(ecs: &World, ctx: &mut Rltk){
 
 	let players = ecs.read_storage::<Player>();
 
+	//use ctx to print player health and update health bar at each tick
 	for(_player, stats) in (&players, &combat_stats).join(){
 		let health = format!("HP: {}/{}",stats.hp,stats.max_hp);
 		ctx.print_color(12,43, RGB::named(rltk::PURPLE), RGB::named(rltk::BLACK), &health);

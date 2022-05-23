@@ -86,7 +86,7 @@ impl GameState for State {
 
 			if map.visible_tiles[idx] {ctx.set(pos.x,pos.y,render.fg,render.bg, render.glyph)};
 		}
-
+		//implement health bar at each tick using ctx from draw_ui
 		gui::draw_ui(&self.ecs, ctx);
 	}
 }
