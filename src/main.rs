@@ -144,49 +144,7 @@ fn main() -> rltk::BError {
 
 		let (x,y) = room.center();
 		spawner::random_monster(&mut gs.ecs, x,y);
-		/*
-		let glyph : rltk::FontCharType;
-		let fg : rltk::RGB;
-		let name : String;
-
-		let roll = rng.roll_dice(1,5);
-		match roll {
-			1 => {glyph = rltk::to_cp437('♥'); fg =  RGB::named(rltk::RED); name = "Heart Henchman".to_string();}
-			2 => {glyph = rltk::to_cp437('♣'); fg = RGB::named(rltk::GREEN); name = "Club Combatant".to_string();}
-			3 => {glyph = rltk::to_cp437('♠'); fg = RGB::named(rltk::BLUE); name = "Spade Soldier".to_string();}
-			_ => {glyph = rltk::to_cp437('♦'); fg = RGB::named(rltk::YELLOW); name = "Diamond Duelist".to_string();}
-		}
-		gs.ecs
-			.create_entity()
-			.with(Position{x,y})
-			.with(Renderable{
-				glyph: glyph,
-				fg: fg,
-				bg: RGB::named(rltk::BLACK),
-			})
-			.with(Viewshed{visible_tiles:Vec::new(),range:6,dirty:true})
-			.with(Monster{})
-			.with(CombatStats{max_hp: 13, hp: 13, defense: 1, power: 4})
-			.with(Name{ name: format!("{}",&name)})
-			.with(BlocksTile{})
-			.build();
-	}
-	*/
-	/*
-		let player_entity = gs.ecs
-			.create_entity()
-			.with(Position { x: player_x, y: player_y})
-			.with(Renderable{
-				glyph: rltk::to_cp437('@'),
-				fg: RGB::named(rltk::PURPLE),
-				bg: RGB::named(rltk::BLACK),
-			})
-			.with(Player{})
-			.with(CombatStats{max_hp: 100, hp: 100, defense: 2, power: 20})
-			.with(Viewshed{visible_tiles:Vec::new(),range: 6, dirty: true}) //change hard code later
-			.with(Name{name: "Player".to_string()})
-			.build();
-	*/
+		
 }
 	//resource inserts
 	//gs.ecs.insert(rltk::RandomNumberGenerator::new());
