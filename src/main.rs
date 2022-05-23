@@ -108,7 +108,7 @@ fn main() -> rltk::BError {
 
 	let mut gs = State{
 		ecs: World::new(),
-		//runstate: RunState::Running
+		
 	};
 
 	gs.ecs.register::<Position>();
