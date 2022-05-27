@@ -90,7 +90,7 @@ pub fn spawn_room(ecs: &mut World, room: &Rect){
 		}
 	}
 
-	//spawn monster
+	//spawn monster - call from main 
 	for idx in monster_spawn_points.iter(){
 		let x = *idx % MAPWIDTH;
 		let y = *idx / MAPWIDTH;

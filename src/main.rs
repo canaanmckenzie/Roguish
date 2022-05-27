@@ -147,7 +147,7 @@ fn main() -> rltk::BError {
 		//spawner::random_monster(&mut gs.ecs, x,y);
 		
 }
-	//resource inserts
+	//resource inserts - check why gs.ecs.insert cannot insert randnum from rltk error does not exist
 	//gs.ecs.insert(rltk::RandomNumberGenerator::new());
 	gs.ecs.insert(map);
 	gs.ecs.insert(Point::new(player_x,player_y));
