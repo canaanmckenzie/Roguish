@@ -25,8 +25,10 @@ pub use gui::draw_ui;
 mod gamelog;
 pub use gamelog::GameLog;
 mod spawner;
-pub use spawner::player;
-pub use spawner::random_monster;
+//pub use spawner::player;
+//pub use spawner::random_monster;
+pub mod inventory_system;
+pub use inventory_system::ItemCollectionSystem;
 
 
 
@@ -106,6 +108,8 @@ impl State{
 		melee.run_now(&self.ecs);
 		let mut damage = DamageSystem{};
 		damage.run_now(&self.ecs);
+		let mut pickup = ItemCollectionSystem{};
+		pickup.run_now(&self.ecs);
 		self.ecs.maintain();
 	}
 }
@@ -131,6 +135,12 @@ fn main() -> rltk::BError {
 	gs.ecs.register::<CombatStats>();
 	gs.ecs.register::<WantsToMelee>();
 	gs.ecs.register::<SufferDamage>();
+	gs.ecs.register::<Item>();
+	gs.ecs.register::<Potion>();
+	gs.ecs.register::<InBackpack>();
+	gs.ecs.register::<WantsToPickupItem>();
+
+
 
 	//let (rooms, map) = new_map_rooms_and_corridors();
 	let map: Map = Map::new_map_rooms_and_corridors();

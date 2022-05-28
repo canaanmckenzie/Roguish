@@ -200,13 +200,13 @@ pub fn draw_map(ecs: &World, ctx: &mut Rltk) {
 
 			match tile {
 				TileType::Floor =>{
-					glyph = rltk::to_cp437('◙');
+					glyph = rltk::to_cp437('.');
 					fg = RGB::from_f32(0.0,0.5,0.5);
 				}
 
 				TileType::Wall =>{
-					glyph = rltk::to_cp437('▓');
-					fg = RGB::from_f32(0.0,0.7,0.5);
+					glyph = rltk::to_cp437('#');
+					fg = RGB::from_f32(0.0,1.0,0.0);
 				}
 			}
 			if !map.visible_tiles[idx] {fg = fg.to_greyscale()}
@@ -214,7 +214,7 @@ pub fn draw_map(ecs: &World, ctx: &mut Rltk) {
 		}
 		//move coordinates
 		x+=1;
-		if x > 79 {
+		if x > MAPWIDTH as i32 - 1 {
 			x=0;
 			y+=1;
 		}
